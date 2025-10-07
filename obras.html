@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +25,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- Estilos de Plyr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
 </head>
 
 <body>
@@ -180,6 +183,156 @@
         </div>
     </div>
     <!-- Carousel End -->
+
+    <div class="container-fluid py-5">
+        <div class="container pt-0 pt-lg-4">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid" src="img/vrfhitachi1.webp" alt="">
+                </div>
+                <div class="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
+                    <h2 class="text-secondary text-uppercase font-weight-medium mb-3">Obra realizada</h2>
+                    <h2 class="text-secondary text-uppercase font-weight-medium mb-3">Proyecto de obra con sistema VRF HITACHI y conductos Alupir</h2>
+                    <h3 class="mb-4">Brindando la mejor calidad, un sistema que proporciona eficiencia energitica, con controles avanzados entregando un excelente confort y diseño.</h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- ======= VIDEO 1 ======= -->
+<div class="container-fluid py-5">
+  <div class="container pt-0 pt-lg-4">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <div class="video-wrapper">
+          <video
+            id="obra-video"
+            class="plyr__video-embed"
+            playsinline
+            controls
+            preload="metadata"
+            poster="img/poster.jpg"
+            aria-label="Video demostrativo de obra"
+          >
+            <source src="video/obra.mp4" type="video/mp4" />
+            Tu navegador no soporta el video. 
+            <a href="video/obra.mp4" download>Descargar video</a>.
+          </video>
+        </div>
+      </div>
+
+      <div class="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
+        <h2 class="text-secondary text-uppercase font-weight-medium mb-3">VRF HITACHI</h2>
+        <h3 class="mb-4">
+          Pueden observar en el video un sistema VRF con múltiples equipos por una parte utilizando conductos
+          con terminación en placas de distintas medidas para las diferentes zonas donde se va a refrigerar y por otra parte utilizando unidades interiores split.
+          También se observan los respectivos controles para cada sistema.
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= VIDEO 2 ======= -->
+<div class="container-fluid py-5">
+  <div class="container pt-0 pt-lg-4">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <div class="video-wrapper">
+          <video
+            id="soldadura-video"
+            class="plyr__video-embed"
+            playsinline
+            controls
+            preload="metadata"
+            poster="img/poster.jpg"
+            aria-label="Video de soldadura de cañerías"
+          >
+            <source src="video/soldadura.mp4" type="video/mp4" />
+            Tu navegador no soporta el video. 
+            <a href="video/soldadura.mp4" download>Descargar video</a>.
+          </video>
+        </div>
+      </div>
+
+      <div class="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
+        <h2 class="text-secondary text-uppercase font-weight-medium mb-3">Soldaduras de cañerías</h2>
+        <h3 class="mb-4">
+          Para realizar las soldaduras previamente los caños deben ser limpiados a la perfección utilizando alcohol isopropílico evitando así cualquier rastro de suciedad que pueda interferir en el sistema en su puesta en marcha.
+          Las soldaduras son realizadas con paso de nitrógeno por toda la cañería para su correcta realización.
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== -->
+<!-- 🎨 CSS de estilo -->
+<!-- ====================== -->
+<style>
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* muestra el video completo sin recortes */
+    border-radius: 12px;
+    background: #000;
+  }
+
+  @media (max-width: 768px) {
+    .video-wrapper {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<!-- ====================== -->
+<!-- ⚙️ Scripts de Plyr -->
+<!-- ====================== -->
+<script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.polyfilled.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Inicializamos ambos reproductores
+    const obraPlayer = new Plyr('#obra-video', {
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+      settings: ['speed', 'loop'],
+      speed: { selected: 1, options: [0.5, 1, 1.25, 1.5, 2] },
+    });
+
+    const soldaduraPlayer = new Plyr('#soldadura-video', {
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
+      settings: ['speed', 'loop'],
+      speed: { selected: 1, options: [0.5, 1, 1.25, 1.5, 2] },
+    });
+
+    // Guardamos todos los players en un array
+    const players = [obraPlayer, soldaduraPlayer];
+
+    // Escuchamos cuando un video empieza a reproducirse
+    players.forEach((player, index) => {
+      player.on('play', () => {
+        players.forEach((otherPlayer, otherIndex) => {
+          if (index !== otherIndex && !otherPlayer.paused) {
+            otherPlayer.pause(); // pausa cualquier otro video que esté sonando
+          }
+        });
+      });
+    });
+  });
+</script>
+
     <!-- Footer Start -->
     <div class="container-fluid bg-primary text-white mt-5 pt-5 px-sm-3 px-md-5">
         <div class="row pt-5">
@@ -259,6 +412,6 @@
     <script src="js/main.js"></script>
 </body>
 
-
 </html>
+
 
