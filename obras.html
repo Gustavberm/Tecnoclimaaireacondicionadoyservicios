@@ -210,6 +210,8 @@
             id="obra-video"
             class="plyr__video-embed"
             playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
             controls
             preload="metadata"
             poster="img/poster.jpg"
@@ -244,6 +246,8 @@
             id="soldadura-video"
             class="plyr__video-embed"
             playsinline
+            webkit-playsinline
+            x-webkit-airplay="allow"
             controls
             preload="metadata"
             poster="img/poster.jpg"
@@ -268,7 +272,7 @@
 </div>
 
 <!-- ====================== -->
-<!-- 🎨 CSS de estilo -->
+<!-- 🎨 CSS -->
 <!-- ====================== -->
 <style>
   .video-wrapper {
@@ -278,6 +282,7 @@
     margin: 0 auto;
     background: #000;
     border-radius: 12px;
+    overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
 
@@ -285,17 +290,12 @@
     display: block;
     width: 100%;
     height: auto;
-    object-fit: contain; /* muestra el video completo sin recortar */
-    border-radius: 12px;
+    object-fit: contain; /* muestra el video completo */
     background: #000;
+    border-radius: 12px;
   }
 
-  /* 📱 En pantallas pequeñas (móviles) */
   @media (max-width: 768px) {
-    .video-section {
-      padding: 1rem 0;
-    }
-
     .video-wrapper {
       max-width: 100%;
       border-radius: 0;
@@ -307,6 +307,13 @@
       height: auto;
       object-fit: contain;
     }
+  }
+
+  /* Mejora para fullscreen */
+  video:fullscreen,
+  video:-webkit-full-screen {
+    object-fit: contain;
+    background: #000;
   }
 </style>
 
@@ -324,6 +331,11 @@
       ],
       settings: ['speed', 'loop'],
       speed: { selected: 1, options: [0.5, 1, 1.25, 1.5, 2] },
+      fullscreen: {
+        enabled: true,
+        fallback: true,
+        iosNative: true // ✅ Soporte completo en iPhone/iPad
+      }
     });
 
     const soldaduraPlayer = new Plyr('#soldadura-video', {
@@ -333,21 +345,27 @@
       ],
       settings: ['speed', 'loop'],
       speed: { selected: 1, options: [0.5, 1, 1.25, 1.5, 2] },
+      fullscreen: {
+        enabled: true,
+        fallback: true,
+        iosNative: true
+      }
     });
 
     const players = [obraPlayer, soldaduraPlayer];
 
-    // Pausar otros videos cuando se reproduce uno
+    // Pausar otros videos cuando uno empieza
     players.forEach((player, index) => {
       player.on('play', () => {
         players.forEach((other, otherIndex) => {
-          if (index !== otherIndex && !other.paused) other.pause();
+          if (index !== otherIndex && !other.paused) {
+            other.pause();
+          }
         });
       });
     });
   });
 </script>
-💡 Explicación
 
     <!-- Footer Start -->
     <div class="container-fluid bg-primary text-white mt-5 pt-5 px-sm-3 px-md-5">
@@ -429,6 +447,7 @@
 </body>
 
 </html>
+
 
 
 
