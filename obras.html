@@ -207,7 +207,6 @@
         <div class="video-wrapper">
           <video
             id="obra-video"
-            class="plyr__video-embed"
             playsinline
             webkit-playsinline
             x-webkit-airplay="allow"
@@ -217,7 +216,7 @@
             aria-label="Video demostrativo de obra"
           >
             <source src="video/obra.mp4" type="video/mp4" />
-            Tu navegador no soporta el video. 
+            Tu navegador no soporta el video.
             <a href="video/obra.mp4" download>Descargar video</a>.
           </video>
         </div>
@@ -226,9 +225,7 @@
       <div class="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
         <h2 class="text-secondary text-uppercase font-weight-medium mb-3">VRF HITACHI</h2>
         <h3 class="mb-4">
-          Pueden observar en el video un sistema VRF con múltiples equipos utilizando conductos
-          terminando en placas de distintas medidas para las diferentes zonas donde se va a refrigerar.
-          También se observan los respectivos controles para cada sistema.
+          Pueden observar en el video un sistema VRF con múltiples equipos utilizando conductos terminando en placas de distintas medidas para las diferentes zonas donde se va a refrigerar. También se observan los respectivos controles para cada sistema.
         </h3>
       </div>
     </div>
@@ -243,17 +240,16 @@
         <div class="video-wrapper">
           <video
             id="soldadura-video"
-            class="plyr__video-embed"
             playsinline
             webkit-playsinline
             x-webkit-airplay="allow"
             controls
             preload="metadata"
-            poster="img/poster.jpg"
+            poster="img/soldar.jpg"
             aria-label="Video de soldadura de cañerías"
           >
             <source src="video/soldadura.mp4" type="video/mp4" />
-            Tu navegador no soporta el video. 
+            Tu navegador no soporta el video.
             <a href="video/soldadura.mp4" download>Descargar video</a>.
           </video>
         </div>
@@ -262,8 +258,7 @@
       <div class="col-lg-7 mt-5 mt-lg-0 pl-lg-5">
         <h2 class="text-secondary text-uppercase font-weight-medium mb-3">Soldaduras de cañerías</h2>
         <h3 class="mb-4">
-          Para realizar las soldaduras previamente los caños deben ser limpiados a la perfección utilizando alcohol isopropílico evitando así cualquier rastro de suciedad que pueda interferir en el sistema en su puesta en marcha.
-          Las soldaduras son realizadas con paso de nitrógeno por toda la cañería para su correcta realización.
+          Para realizar las soldaduras previamente los caños deben ser limpiados a la perfección utilizando alcohol isopropílico evitando así cualquier rastro de suciedad que pueda interferir en el sistema en su puesta en marcha. Las soldaduras son realizadas con paso de nitrógeno por toda la cañería para su correcta realización.
         </h3>
       </div>
     </div>
@@ -273,6 +268,11 @@
 <!-- ====================== -->
 <!-- 🎨 CSS -->
 <!-- ====================== -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css"
+/>
+
 <style>
   .video-wrapper {
     position: relative;
@@ -285,13 +285,17 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
 
-  .video-wrapper video {
+  video {
     display: block;
     width: 100%;
     height: auto;
-    object-fit: contain; /* muestra el video completo */
-    background: #000;
+    object-fit: contain;
     border-radius: 12px;
+  }
+
+  /* Ajustes para los controles de Plyr */
+  .plyr--video {
+    font-size: 14px !important;
   }
 
   @media (max-width: 768px) {
@@ -301,14 +305,17 @@
       box-shadow: none;
     }
 
-    .video-wrapper video {
+    video {
       width: 100%;
       height: auto;
-      object-fit: contain;
+    }
+
+    /* Escala correcta de controles en móviles */
+    .plyr--video {
+      font-size: 12px !important;
     }
   }
 
-  /* Mejora para fullscreen */
   video:fullscreen,
   video:-webkit-full-screen {
     object-fit: contain;
@@ -333,7 +340,7 @@
       fullscreen: {
         enabled: true,
         fallback: true,
-        iosNative: true // ✅ Soporte completo en iPhone/iPad
+        iosNative: true
       }
     });
 
@@ -447,6 +454,7 @@
 </body>
 
 </html>
+
 
 
 
